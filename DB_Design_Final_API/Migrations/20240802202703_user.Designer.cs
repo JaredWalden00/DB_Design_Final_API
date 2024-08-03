@@ -2,6 +2,7 @@
 using DB_Design_Final_API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DB_Design_Final_API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240802202703_user")]
+    partial class user
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,43 +22,6 @@ namespace DB_Design_Final_API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("DB_Design_Final_API.Models.Address", b =>
-                {
-                    b.Property<long>("AddressId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("AddressId"));
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<long>("Cust_ID")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("CustomerCust_ID")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("ZipCode")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("AddressId");
-
-                    b.HasIndex("CustomerCust_ID");
-
-                    b.ToTable("Address");
-                });
 
             modelBuilder.Entity("DB_Design_Final_API.Models.CCInfo", b =>
                 {
@@ -287,17 +252,6 @@ namespace DB_Design_Final_API.Migrations
                     b.ToTable("Warehouses");
                 });
 
-            modelBuilder.Entity("DB_Design_Final_API.Models.Address", b =>
-                {
-                    b.HasOne("DB_Design_Final_API.Models.Customer", "Customer")
-                        .WithMany("Addresses")
-                        .HasForeignKey("CustomerCust_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
-                });
-
             modelBuilder.Entity("DB_Design_Final_API.Models.CCInfo", b =>
                 {
                     b.HasOne("DB_Design_Final_API.Models.Customer", "Customer")
@@ -360,8 +314,6 @@ namespace DB_Design_Final_API.Migrations
 
             modelBuilder.Entity("DB_Design_Final_API.Models.Customer", b =>
                 {
-                    b.Navigation("Addresses");
-
                     b.Navigation("CCInfos");
                 });
 

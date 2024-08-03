@@ -1,4 +1,6 @@
-﻿namespace DB_Design_Final_API.Models
+﻿using System.Net;
+
+namespace DB_Design_Final_API.Models
 {
     // Models/Customer.cs
     public class Customer
@@ -8,19 +10,29 @@
         public string Address { get; set; }
         public decimal Balance { get; set; }
         public ICollection<CCInfo> CCInfos { get; set; }
+        public ICollection<Address> Addresses { get; set; }
     }
 
-    // Models/CCInfo.cs
     public class CCInfo
     {
-        public long Cust_ID { get; set; }
-        public Customer Customer { get; set; }
-        public string BillingAddress { get; set; }
         public long CC_Num { get; set; }
         public int Sec_Num { get; set; }
+        public string BillingAddress { get; set; }
+        public long Cust_ID { get; set; }
+        public Customer Customer { get; set; }
     }
 
-    // Models/Employee.cs
+    public class Address
+    {
+        public long AddressId { get; set; }
+        public string Street { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string ZipCode { get; set; }
+        public long Cust_ID { get; set; }
+        public Customer Customer { get; set; }
+    }
+
     public class Employee
     {
         public long Empl_ID { get; set; }
@@ -30,7 +42,6 @@
         public string Title { get; set; }
     }
 
-    // Models/Product.cs
     public class Product
     {
         public long Prod_ID { get; set; }
@@ -42,7 +53,6 @@
         public decimal Price { get; set; }
     }
 
-    // Models/Warehouse.cs
     public class Warehouse
     {
         public long Ware_ID { get; set; }
@@ -50,7 +60,6 @@
         public decimal Capacity { get; set; }
     }
 
-    // Models/Stock.cs
     public class Stock
     {
         public long Prod_ID { get; set; }
@@ -60,7 +69,13 @@
         public int Count { get; set; }
     }
 
-    // Models/Order.cs
+    public class StockDto
+    {
+        public long Prod_ID { get; set; }
+        public long Ware_ID { get; set; }
+        public int Count { get; set; }
+    }
+
     public class Order
     {
         public long Ordr_ID { get; set; }
@@ -69,7 +84,6 @@
         public int Count { get; set; }
     }
 
-    // Models/Supplier.cs
     public class Supplier
     {
         public long Supp_ID { get; set; }
@@ -78,7 +92,6 @@
         public ICollection<Supply> Supplies { get; set; }
     }
 
-    // Models/Supply.cs
     public class Supply
     {
         public long Supp_ID { get; set; }
